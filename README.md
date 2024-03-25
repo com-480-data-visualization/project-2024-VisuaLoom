@@ -3,7 +3,7 @@
 | Student's name | SCIPER |
 | -------------- | ------ |
 |Heling Shi |370001 |
-|Jingren Tang | |
+|Jingren Tang |374079 |
 |Hanwen Zhang |370374 |
 
 [Milestone 1](Milestone1.pdf) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)

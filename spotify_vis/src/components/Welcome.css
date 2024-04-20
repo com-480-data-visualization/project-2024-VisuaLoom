@@ -1,0 +1,47 @@
+.welcome-modal {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+.welcome-modal-content {
+    background-color: white;
+    margin: 18% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.welcome-modal h1 {
+    font-family: 'Arial', sans-serif;
+    color: #000000;
+}
+
+.welcome-modal p {
+    font-family: 'Verdana', sans-serif;
+    color: #333;
+}
+
+.welcome-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #a859be;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.welcome-button:hover {
+    background-color: #b99ec0;
+}

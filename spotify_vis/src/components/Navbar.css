@@ -1,0 +1,22 @@
+/* src/components/Navbar.css */
+.nav-tabs {
+    background-image: linear-gradient(to right, #230690, #CA4779);
+}
+
+.nav-item {
+    color: white;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-item:hover {
+    background-color: #8f569b;
+    color: #ffffff;
+}
+
+
+.nav-link.active {
+    color: #882e9a !important; /* The colour of the text in the selected state is changed to black */
+}

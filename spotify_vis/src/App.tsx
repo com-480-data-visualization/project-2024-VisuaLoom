@@ -8,10 +8,10 @@ import Genres from "./components/Genres";
 import Features from "./components/Features";
 
 const App: React.FC = () => {
-  const [showWelcome, setShowWelcome] = useState(true); // 控制欢迎界面弹窗的显示
+  const [showWelcome, setShowWelcome] = useState(true);
 
   const handleClose = () => {
-    setShowWelcome(false); // 关闭弹窗
+    setShowWelcome(false); 
   };
 
   return (
@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <div>
         <Navbar />
         {showWelcome && <Welcome onClose={handleClose} />}{" "}
-        {/* 只有当 showWelcome 为 true 时显示 Welcome 组件 */}
+        {}
         <div className="tab-content" id="myTabContent">
           <Routes>
             <Route path="/" element={<Songs />} />

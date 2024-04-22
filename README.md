@@ -24,7 +24,7 @@ Please, fill the following sections about your project.
 
 **10% of the final grade**
 
-
+🚩 [Milestone 2](Milestone2.pdf)
 ## Milestone 3 (31st May, 5pm)
 
 **80% of the final grade**

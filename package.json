@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "apexcharts": "^3.49.0",
+    "papaparse": "^5.4.1",
+    "react-apexcharts": "^1.4.1"
+  }
+}

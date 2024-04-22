@@ -11,15 +11,14 @@ const App: React.FC = () => {
   const [showWelcome, setShowWelcome] = useState(true);
 
   const handleClose = () => {
-    setShowWelcome(false); 
+    setShowWelcome(false);
   };
 
   return (
     <Router>
       <div>
         <Navbar />
-        {showWelcome && <Welcome onClose={handleClose} />}{" "}
-        {}
+        {showWelcome && <Welcome onClose={handleClose} />} {}
         <div className="tab-content" id="myTabContent">
           <Routes>
             <Route path="/" element={<Songs />} />

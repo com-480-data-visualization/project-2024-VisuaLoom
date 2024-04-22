@@ -51,7 +51,7 @@ const Page4: React.FC = () => {
     const averagesByYear = Object.keys(groupedByYear).map((year) => {
       const sums = groupedByYear[year].sums;
       const counts = groupedByYear[year].counts;
-      const avgs = {};
+      const avgs: { [key: string]: number } = {};
       for (const key in sums) {
         avgs[key] = sums[key] / counts;
       }
@@ -59,19 +59,22 @@ const Page4: React.FC = () => {
     });
     console.log(averagesByYear);
     // Compute the min and max values for each feature
-    const allAverages = averagesByYear.reduce((acc, curr) => {
-      for (const key in curr) {
-        if (key !== "year") {
-          if (!acc[key]) {
-            acc[key] = [];
+    const allAverages: { [key: string]: number[] } = averagesByYear.reduce(
+      (acc, curr: CsvDataRow) => {
+        for (const key in curr) {
+          if (key !== "year") {
+            if (!acc[key]) {
+              acc[key] = [];
+            }
+            acc[key].push(parseFloat(curr[key]));
           }
-          acc[key].push(curr[key]);
         }
-      }
-      return acc;
-    }, {});
+        return acc;
+      },
+      {} as { [key: string]: number[] }
+    );
     console.log(allAverages);
-    const minMaxValues = {};
+    const minMaxValues: { [key: string]: { min: number; max: number } } = {};
     for (const key in allAverages) {
       minMaxValues[key] = {
         min: Math.min(...allAverages[key]),
@@ -80,21 +83,23 @@ const Page4: React.FC = () => {
     }
     console.log(minMaxValues);
     //Normalize the data
-    const normalizedAveragesByYear = averagesByYear.map((item) => {
-      const year = item.year;
-      const normalizedAvgs = {};
-      for (const key in item) {
-        if (key !== "year") {
-          const value = item[key];
-          const { min, max } = minMaxValues[key];
+    const normalizedAveragesByYear: NormalizedData[] = averagesByYear.map(
+      (item: CsvDataRow) => {
+        const year = item.year;
+        const normalizedAvgs: { [key: string]: number } = {};
+        for (const key in item) {
+          if (key !== "year") {
+            const value = parseFloat(item[key]);
+            const { min, max } = minMaxValues[key];
 
-          normalizedAvgs[key] = (value - min) / (max - min);
+            normalizedAvgs[key] = (value - min) / (max - min);
+          }
         }
+        return { year, ...normalizedAvgs };
       }
-      return { year, ...normalizedAvgs };
-    });
+    );
     console.log(normalizedAveragesByYear);
-    const newseries = [
+    const newseries: Series[] = [
       { name: "danceability", data: [] },
       { name: "energy", data: [] },
       { name: "loudness", data: [] },
@@ -105,17 +110,28 @@ const Page4: React.FC = () => {
       { name: "valence", data: [] },
       { name: "tempo", data: [] },
     ];
-
-    normalizedAveragesByYear.forEach((avg) => {
-      newseries[0].data.push({ x: avg.year, y: avg.danceability });
-      newseries[1].data.push({ x: avg.year, y: avg.energy });
-      newseries[2].data.push({ x: avg.year, y: avg.loudness });
-      newseries[3].data.push({ x: avg.year, y: avg.speechiness });
-      newseries[4].data.push({ x: avg.year, y: avg.acousticness });
-      newseries[5].data.push({ x: avg.year, y: avg.instrumentalness });
-      newseries[6].data.push({ x: avg.year, y: avg.liveness });
-      newseries[7].data.push({ x: avg.year, y: avg.valence });
-      newseries[8].data.push({ x: avg.year, y: avg.tempo });
+    interface NormalizedData {
+      year: string;
+      danceability?: number;
+      energy?: number;
+      loudness?: number;
+      speechiness?: number;
+      acousticness?: number;
+      instrumentalness?: number;
+      liveness?: number;
+      valence?: number;
+      tempo?: number;
+    }
+    normalizedAveragesByYear.forEach((avg: NormalizedData) => {
+      newseries[0].data.push({ x: avg.year, y: avg.danceability || 0 });
+      newseries[1].data.push({ x: avg.year, y: avg.energy || 0 });
+      newseries[2].data.push({ x: avg.year, y: avg.loudness || 0 });
+      newseries[3].data.push({ x: avg.year, y: avg.speechiness || 0 });
+      newseries[4].data.push({ x: avg.year, y: avg.acousticness || 0 });
+      newseries[5].data.push({ x: avg.year, y: avg.instrumentalness || 0 });
+      newseries[6].data.push({ x: avg.year, y: avg.liveness || 0 });
+      newseries[7].data.push({ x: avg.year, y: avg.valence || 0 });
+      newseries[8].data.push({ x: avg.year, y: avg.tempo || 0 });
     });
 
     return newseries;
@@ -124,11 +140,11 @@ const Page4: React.FC = () => {
   const options = {
     chart: {
       height: 650,
-      type: "heatmap",
+      type: "heatmap" as const,
     },
-    xaxis: {
-      type: "category",
-    },
+    // xaxis: {
+    //   type: "category",
+    // },
     dataLabels: {
       enabled: false,
     },
@@ -163,18 +179,20 @@ const Page4: React.FC = () => {
     fetchData();
   }, []);
   return (
-    <div>
-      <div id="chart">
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="heatmap"
-          height={450}
-          width={1150}
-        />
+    <>
+      <div>
+        <div id="chart">
+          <ReactApexChart
+            options={options}
+            series={series}
+            height={450}
+            width={1150}
+            type="heatmap"
+          />
+        </div>
+        <div id="html-dist"></div>
       </div>
-      <div id="html-dist"></div>
-    </div>
+    </>
   );
 };
 

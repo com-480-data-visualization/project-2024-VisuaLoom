@@ -161,7 +161,7 @@ const Page4: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("_data/songs_normalize.csv");
+        const response = await fetch("../public/data/songs_normalize.csv");
         const csv = await response.text();
         Papa.parse(csv, {
           complete: (result) => {

@@ -24,7 +24,9 @@ Please, fill the following sections about your project.
 
 **10% of the final grade**
 
+🚩 [Milestone 2](Milestone2.pdf)
 
+🚩Our website link: <https://com-480-data-visualization.github.io/project-2024-VisuaLoom/>
 ## Milestone 3 (31st May, 5pm)
 
 **80% of the final grade**

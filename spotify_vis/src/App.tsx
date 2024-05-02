@@ -6,6 +6,7 @@ import Songs from "./components/Songs";
 import Singers from "./components/Singers";
 import Genres from "./components/Genres";
 import Features from "./components/Features";
+import "./App.css";
 
 const App: React.FC = () => {
   const [showWelcome, setShowWelcome] = useState(true);

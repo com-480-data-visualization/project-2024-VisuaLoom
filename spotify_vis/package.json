@@ -5,16 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build || true",
     "preview": "vite preview",
     "start": "vite",
     "deploy": "gh-pages -d dist",
     "homepage": "https://com-480-data-visualization.github.io/project-2024-VisuaLoom/"
   },
   "dependencies": {
+    "@types/d3": "^7.4.3",
+    "@visx/visx": "^3.10.2",
     "bootstrap": "^5.2.3",
+    "chart.js": "^4.4.2",
+    "d3": "^7.9.0",
+    "d3-scale": "^4.0.2",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3"
   },

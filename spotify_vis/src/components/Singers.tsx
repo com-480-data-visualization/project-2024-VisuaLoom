@@ -94,7 +94,7 @@ const Page2: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/data/songs_normalize.csv");
+        const response = await fetch("/spotify_vis/data/songs_normalize.csv");
         const csv = await response.text();
         Papa.parse(csv, {
           header: true,
@@ -137,7 +137,7 @@ const Page2: React.FC = () => {
   useEffect(() => {
     async function fetchDataOne() {
       try {
-        const response = await fetch("/data/songs_normalize.csv");
+        const response = await fetch("/spotify_vis/data/songs_normalize.csv");
         const csv = await response.text();
         Papa.parse(csv, {
           header: true,

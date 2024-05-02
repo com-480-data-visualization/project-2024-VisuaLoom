@@ -94,40 +94,36 @@ const Page2: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/spotify_vis/data/songs_normalize.csv");
-        const csv = await response.text();
-        Papa.parse(csv, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (result) => {
-            const seen = new Set();
-            const processedData = result.data
-              .map((d: any) => ({
-                artist: d.artist,
-                song: d.song,
-                year: +d.year,
-                popularity: +d.popularity,
-              }))
-              .filter((d: SongData) => {
-                const identifier = `${d.artist}-${d.song}-${d.year}`;
-                if (seen.has(identifier)) {
-                  return false; // drop duplicates
-                }
-                seen.add(identifier);
-                return true;
-              });
+        const response = await fetch("/data/songs_normalize.json"); // 更改为 JSON 文件路径
+        const jsonData = await response.json();
 
-            const filteredData = processedData.filter((d) =>
-              singernames.includes(d.artist)
-            );
-            filteredData.sort(
-              (a, b) => a.year - b.year || b.popularity - a.popularity
-            );
-            setData(filteredData);
-          },
-        });
+        // 在这里可以直接使用 jsonData，不需要再使用 Papa.parse 进行解析
+        const seen = new Set();
+        const processedData = jsonData
+          .map((d: any) => ({
+            artist: d.artist,
+            song: d.song,
+            year: +d.year,
+            popularity: +d.popularity,
+          }))
+          .filter((d: SongData) => {
+            const identifier = `${d.artist}-${d.song}-${d.year}`;
+            if (seen.has(identifier)) {
+              return false; // drop duplicates
+            }
+            seen.add(identifier);
+            return true;
+          });
+
+        const filteredData = processedData.filter((d: any) =>
+          singernames.includes(d.artist)
+        );
+        filteredData.sort(
+          (a: any, b: any) => a.year - b.year || b.popularity - a.popularity
+        );
+        setData(filteredData);
       } catch (error) {
-        console.error("An error occurred while fetching the CSV data:", error);
+        console.error("An error occurred while fetching the JSON data:", error);
       }
     }
 
@@ -137,63 +133,57 @@ const Page2: React.FC = () => {
   useEffect(() => {
     async function fetchDataOne() {
       try {
-        const response = await fetch("/spotify_vis/data/songs_normalize.csv");
-        const csv = await response.text();
-        Papa.parse(csv, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (result) => {
-            let artistData: ArtistData = {};
+        const response = await fetch("/data/songs_normalize.json");
+        const jsonData = await response.json();
 
-            result.data.forEach((d: any) => {
-              if (!singernames.includes(d.artist)) return;
+        let artistData: ArtistData = {};
 
-              if (!artistData[d.artist]) {
-                artistData[d.artist] = {
-                  danceability: 0,
-                  energy: 0,
-                  speechiness: 0,
-                  acousticness: 0,
-                  tempo: 0,
-                  liveness: 0,
-                  valence: 0,
-                  count: 0,
-                };
-              }
+        jsonData.forEach((d: any) => {
+          if (!singernames.includes(d.artist)) return;
 
-              artistData[d.artist].danceability += +d.danceability;
-              artistData[d.artist].energy += +d.energy;
-              artistData[d.artist].speechiness += +d.speechiness;
-              artistData[d.artist].acousticness += +d.acousticness;
-              artistData[d.artist].liveness += +d.liveness;
-              artistData[d.artist].valence += +d.valence;
-              artistData[d.artist].tempo += +d.tempo / 160;
-              artistData[d.artist].count += 1;
-            });
+          if (!artistData[d.artist]) {
+            artistData[d.artist] = {
+              danceability: 0,
+              energy: 0,
+              speechiness: 0,
+              acousticness: 0,
+              tempo: 0,
+              liveness: 0,
+              valence: 0,
+              count: 0,
+            };
+          }
 
-            const averages: ArtistAverages[] = Object.keys(artistData).map(
-              (artist) => ({
-                artist,
-                danceability:
-                  artistData[artist].danceability / artistData[artist].count,
-                energy: artistData[artist].energy / artistData[artist].count,
-                speechiness:
-                  artistData[artist].speechiness / artistData[artist].count,
-                acousticness:
-                  artistData[artist].acousticness / artistData[artist].count,
-                liveness:
-                  artistData[artist].liveness / artistData[artist].count,
-                valence: artistData[artist].valence / artistData[artist].count,
-                tempo: artistData[artist].tempo / artistData[artist].count,
-                count: artistData[artist].count,
-              })
-            );
-
-            setData2(averages);
-          },
+          artistData[d.artist].danceability += +d.danceability;
+          artistData[d.artist].energy += +d.energy;
+          artistData[d.artist].speechiness += +d.speechiness;
+          artistData[d.artist].acousticness += +d.acousticness;
+          artistData[d.artist].liveness += +d.liveness;
+          artistData[d.artist].valence += +d.valence;
+          artistData[d.artist].tempo += +d.tempo / 160;
+          artistData[d.artist].count += 1;
         });
+
+        const averages: ArtistAverages[] = Object.keys(artistData).map(
+          (artist) => ({
+            artist,
+            danceability:
+              artistData[artist].danceability / artistData[artist].count,
+            energy: artistData[artist].energy / artistData[artist].count,
+            speechiness:
+              artistData[artist].speechiness / artistData[artist].count,
+            acousticness:
+              artistData[artist].acousticness / artistData[artist].count,
+            liveness: artistData[artist].liveness / artistData[artist].count,
+            valence: artistData[artist].valence / artistData[artist].count,
+            tempo: artistData[artist].tempo / artistData[artist].count,
+            count: artistData[artist].count,
+          })
+        );
+
+        setData2(averages);
       } catch (error) {
-        console.error("An error occurred while fetching the CSV data:", error);
+        console.error("An error occurred while fetching the JSON data:", error);
       }
     }
 

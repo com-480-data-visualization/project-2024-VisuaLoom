@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactApexChart from "react-apexcharts";
 import Papa from "papaparse";
+import "./Features.css";
 
 const Page4: React.FC = () => {
   const [series, setSeries] = useState<any[]>([]);
+  const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
+  const chartRef = useRef<any>();
+  const [lineChartOptions, setLineChartOptions] = useState({});
+  const [lineChartData, setLineChartData] = useState<any[]>([]);
 
   type DataPoint = { x: string; y: number };
 
@@ -100,15 +105,15 @@ const Page4: React.FC = () => {
     );
     console.log(normalizedAveragesByYear);
     const newseries: Series[] = [
-      { name: "danceability", data: [] },
-      { name: "energy", data: [] },
-      { name: "loudness", data: [] },
-      { name: "speechiness", data: [] },
-      { name: "acousticness", data: [] },
-      { name: "instrumentalness", data: [] },
-      { name: "liveness", data: [] },
-      { name: "valence", data: [] },
-      { name: "tempo", data: [] },
+      { name: "Danceability", data: [] },
+      { name: "Energy", data: [] },
+      { name: "Loudness", data: [] },
+      { name: "Speechiness", data: [] },
+      { name: "Acousticness", data: [] },
+      { name: "Instrumentalness", data: [] },
+      { name: "Liveness", data: [] },
+      { name: "Valence", data: [] },
+      { name: "Tempo", data: [] },
     ];
     interface NormalizedData {
       year: string;
@@ -137,19 +142,35 @@ const Page4: React.FC = () => {
     return newseries;
   }
 
-  const options = {
+  const heatmapOptions = {
     chart: {
       height: 650,
       type: "heatmap" as const,
     },
-    // xaxis: {
-    //   type: "category",
-    // },
     dataLabels: {
       enabled: false,
     },
     title: {
       text: "HeatMap Chart",
+    },
+    xaxis: {
+      labels: {
+        style: {
+          fontSize: "14px", // 设置字体大小
+          fontFamily: "Helvetica, Arial, sans-serif", // 设置字体
+          cssClass: "apexcharts-xaxis-label", // 自定义CSS类
+        },
+        rotate: -45, // 如有必要可以设置标签旋转角度
+      },
+    },
+    yaxis: {
+      labels: {
+        style: {
+          fontSize: "14px", // 设置字体大小
+          fontFamily: "Helvetica, Arial, sans-serif", // 设置字体
+          cssClass: "apexcharts-yaxis-label", // 自定义CSS类
+        },
+      },
     },
     plotOptions: {
       heatmap: {
@@ -178,19 +199,100 @@ const Page4: React.FC = () => {
 
     fetchData();
   }, []);
+
+  const labelClickHandler = (event: Event) => {
+    const featureName = (event.target as HTMLDivElement).textContent;
+    setSelectedFeature(featureName);
+
+    // 根据点击的特征名生成对应的折线图数据和选项
+    if (featureName) {
+      const data = series.find((serie) => serie.name === featureName);
+      console.log(data);
+      if (data) {
+        const lineData = [{ name: featureName, data: data.data }];
+        setLineChartData(lineData);
+
+        const lineChartOptions = {
+          chart: {
+            height: 350,
+            type: "line",
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "smooth",
+          },
+          xaxis: {
+            type: "category",
+            categories: data.data.map((point: any) => point.x),
+          },
+          yaxis: {
+            title: {
+              text: "Value",
+            },
+            labels: {
+              style: {
+                fontSize: "12px",
+                fontFamily: "Helvetica, Arial, sans-serif",
+                cssClass: "apexcharts-yaxis-label",
+              },
+              formatter: (value: number) => value.toFixed(2),
+            },
+          },
+          title: {
+            text: `${featureName} Line Chart`,
+            align: "left",
+          },
+        };
+        setLineChartOptions(lineChartOptions);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (chartRef.current) {
+      const yAxisLabels = chartRef.current.chart.el.querySelectorAll(
+        ".apexcharts-yaxis-label"
+      );
+      yAxisLabels.forEach((label: any) => {
+        label.addEventListener("click", labelClickHandler);
+        label.style.cursor = "pointer";
+      });
+
+      return () => {
+        yAxisLabels.forEach((label: any) => {
+          label.removeEventListener("click", labelClickHandler);
+        });
+      };
+    }
+  }, [series]);
+
   return (
     <>
       <div>
         <div id="chart">
           <ReactApexChart
-            options={options}
+            options={heatmapOptions}
             series={series}
             height={450}
             width={1150}
             type="heatmap"
+            ref={chartRef}
           />
         </div>
-        <div id="html-dist"></div>
+        {selectedFeature && (
+          <div>
+            <h2>{selectedFeature} </h2>
+            <ReactApexChart
+              options={lineChartOptions}
+              series={lineChartData}
+              type="line"
+              height={350}
+              width={1150}
+            />
+          </div>
+        )}
       </div>
     </>
   );

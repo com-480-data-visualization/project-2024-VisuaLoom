@@ -1,0 +1,63 @@
+.App {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background: #f0f4f8;  
+  }
+  
+  .histogram {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .year-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .year {
+    min-width: 60px;
+    font-weight: bold;
+    margin-right: 10px;
+    color: #333;  
+  }
+  
+  .dots {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .dot {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+    height: 20px;
+    width: 20px;
+    background: #007bff; /* 简单的蓝色背景 */
+    border-radius: 4px; /* 轻微圆角 */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
+    transition: all 0.3s ease; /* 平滑过渡效果 */
+}
+
+
+
+
+  .dot span {
+    display: none;  
+  }
+  
+  .dot:hover {
+    transform: scale(1.5);  
+  }
+  
+  
+.dot[data-popularity="very-high"] { background: linear-gradient(to top, #483D8B, #697dd7); } 
+.dot[data-popularity="high"] { background: linear-gradient(to top, #4169E1, #6495ED); }  
+.dot[data-popularity="medium"] { background: linear-gradient(to top, #1E90FF, #87CEFA); }  
+.dot[data-popularity="low"] { background: linear-gradient(to top, #00BFFF, #87CEEB); }  
+.dot[data-popularity="very-low"] { background: linear-gradient(to top, #87CEFA, #0e6ec3); }
+

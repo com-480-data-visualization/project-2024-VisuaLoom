@@ -182,7 +182,9 @@ const Page4: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/data/songs_normalize.csv");
+        const response = await fetch(
+          "project-2024-VisuaLoom/data/songs_normalize.csv"
+        );
         const csv = await response.text();
         Papa.parse(csv, {
           complete: (result) => {

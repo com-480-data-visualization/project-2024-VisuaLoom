@@ -187,7 +187,9 @@ const Page4: React.FC = () => {
         );
         const csv = await response.text();
         Papa.parse(csv, {
-          complete: (result) => {
+          complete: (result: {
+            data: { [key: string]: string; year: string }[];
+          }) => {
             const processedData = processCSVData(result.data as CsvDataRow[]);
             setSeries(processedData);
           },
@@ -208,7 +210,9 @@ const Page4: React.FC = () => {
 
     // 根据点击的特征名生成对应的折线图数据和选项
     if (featureName) {
-      const data = series.find((serie) => serie.name === featureName);
+      const data = series.find(
+        (serie: { name: string }) => serie.name === featureName
+      );
       console.log(data);
       if (data) {
         const lineData = [{ name: featureName, data: data.data }];

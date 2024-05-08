@@ -135,7 +135,9 @@ const Page2: React.FC = () => {
   useEffect(() => {
     async function fetchDataOne() {
       try {
-        const response = await fetch("/data/songs_normalize.json");
+        const response = await fetch(
+          "project-2024-VisuaLoom/data/songs_normalize.csv"
+        );
         const jsonData = await response.json();
 
         let artistData: ArtistData = {};

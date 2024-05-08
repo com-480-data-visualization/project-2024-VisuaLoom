@@ -94,7 +94,9 @@ const Page2: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch("/data/songs_normalize.json"); // 更改为 JSON 文件路径
+        const response = await fetch(
+          "project-2024-VisuaLoom/data/songs_normalize.csv"
+        ); // 更改为 JSON 文件路径
         const jsonData = await response.json();
 
         // 在这里可以直接使用 jsonData，不需要再使用 Papa.parse 进行解析

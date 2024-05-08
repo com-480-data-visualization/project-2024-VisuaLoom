@@ -29,7 +29,7 @@ const Page1: React.FC = () => {
   const [data, setData] = useState<YearData[]>([]);
 
   useEffect(() => {
-    Papa.parse("/data/songs_normalize.csv", {
+    Papa.parse("project-2024-VisuaLoom/data/songs_normalize.csv", {
       download: true,
       header: true,
       complete: function (results) {

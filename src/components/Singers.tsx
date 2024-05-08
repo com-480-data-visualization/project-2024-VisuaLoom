@@ -95,7 +95,7 @@ const Page2: React.FC = () => {
     async function fetchData() {
       try {
         const response = await fetch(
-          "project-2024-VisuaLoom/data/songs_normalize.csv"
+          "project-2024-VisuaLoom/data/songs_normalize.json"
         ); // 更改为 JSON 文件路径
         const jsonData = await response.json();
 
@@ -136,7 +136,7 @@ const Page2: React.FC = () => {
     async function fetchDataOne() {
       try {
         const response = await fetch(
-          "project-2024-VisuaLoom/data/songs_normalize.csv"
+          "project-2024-VisuaLoom/data/songs_normalize.json"
         );
         const jsonData = await response.json();
 

@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
 import Welcome from "./components/Welcome";
 import Navbar from "./components/Navbar";
 import Songs from "./components/Songs";
@@ -19,7 +24,7 @@ const App: React.FC = () => {
     <Router>
       <div>
         <Navbar />
-        {showWelcome && <Welcome onClose={handleClose} />} {}
+        {showWelcome && <Welcome onClose={handleClose} />}
         <div className="tab-content" id="myTabContent">
           <Routes>
             <Route path="/" element={<Songs />} />

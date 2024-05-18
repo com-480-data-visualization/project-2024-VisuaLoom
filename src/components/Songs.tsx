@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./Songs.css";
 import Papa from "papaparse";
+import "./Songs.css";
 
 interface Song {
   song_id: number;
   title: string;
   popularity: number;
   artist: string;
-  danceability: number;
+  duration_ms: string; // 修改这里
 }
 
 interface YearData {
@@ -27,6 +27,7 @@ interface SongData {
 
 const Page1: React.FC = () => {
   const [data, setData] = useState<YearData[]>([]);
+  const [selectedSong, setSelectedSong] = useState<Song | null>(null);
 
   useEffect(() => {
     Papa.parse("project-2024-VisuaLoom/data/songs_normalize.csv", {
@@ -43,9 +44,8 @@ const Page1: React.FC = () => {
   function formatData(items: SongData[]): YearData[] {
     const years = items.reduce(
       (acc: Record<string, Song[]>, item: SongData) => {
-        // 确保年份有效
         if (!item.year || item.year.trim() === "") {
-          return acc; // 跳过这条记录
+          return acc;
         }
 
         const song: Song = {
@@ -53,7 +53,7 @@ const Page1: React.FC = () => {
           title: item.song,
           popularity: parseInt(item.popularity, 10),
           artist: item.artist,
-          danceability: parseFloat(item.danceability),
+          duration_ms: item.duration_ms, // 修改这里
         };
 
         acc[item.year] = acc[item.year] || [];
@@ -66,6 +66,7 @@ const Page1: React.FC = () => {
 
     return Object.keys(years).map((year) => ({ year, songs: years[year] }));
   }
+
   function getPopularityLevel(popularity: number) {
     if (popularity >= 80) {
       return "very-high";
@@ -79,41 +80,13 @@ const Page1: React.FC = () => {
       return "very-low";
     }
   }
-  const beats: string | any[] = [
-    /* Array of beats per minute extracted from songs */
-  ];
 
-  // Simulate beat per dot
-  const dots = document.querySelectorAll(".dot") as NodeListOf<HTMLElement>;
-  dots.forEach((dot, index) => {
-    const animationDuration = (60 / beats[index % beats.length]) * 1000; // Calculate duration based on BPM
-    dot.style.animation = `beatAnimation ${animationDuration}ms infinite alternate`;
-  });
-
-  // dots.forEach((dot) => {
-  //   const popularityAttribute = dot.getAttribute("data-popularity");
-  //   if (popularityAttribute) {
-  //     const popularity = parseInt(popularityAttribute, 10);
-  //     const size = getDotSize(popularity);
-  //     dot.style.height = `${size}px`;
-  //     dot.style.width = `${size}px`;
-  //   } else {
-  //     console.warn("Popularity attribute is missing on a dot element.");
-  //     // Optionally, handle the case where the attribute is missing
-  //     // e.g., set a default size or apply a default style
-  //     dot.style.height = "5px"; // Default size
-  //     dot.style.width = "5px"; // Default size
-  //   }
-  // });
-
-  // function getDotSize(popularity: number) {
-  //   // 假设流行度从1到100，点的大小从5px到20px变化
-  //   return 5 + (popularity / 200) * 15;
-  // }
+  function handleDotClick(song: Song) {
+    setSelectedSong(song);
+  }
 
   return (
-    <div className="Page1">
-      {/* <h1>Yearly Top Songs Visualizer</h1> */}
+    <div className="App">
       <div className="histogram">
         {data.map(({ year, songs }) => (
           <div key={year} className="year-row">
@@ -123,18 +96,29 @@ const Page1: React.FC = () => {
                 <div
                   className="dot"
                   key={song.song_id}
-                  // style={{
-                  //   height: getDotSize(song.popularity),
-                  //   width: getDotSize(song.popularity),
-                  // }}
                   data-popularity={getPopularityLevel(song.popularity)}
-                  title={`${song.artist} - ${song.title}: Popularity ${song.popularity}`}
-                ></div>
+                  onClick={() => handleDotClick(song)}
+                />
               ))}
             </div>
           </div>
         ))}
       </div>
+      {selectedSong && (
+        <div className="song-info">
+          <h2>{selectedSong.title}</h2>
+          <p>
+            <strong>Artist:</strong> {selectedSong.artist}
+          </p>
+          <p>
+            <strong>Popularity:</strong> {selectedSong.popularity}
+          </p>
+          <p>
+            <strong>Duration:</strong> {selectedSong.duration_ms} ms
+          </p>{" "}
+          {/* 修改这里 */}
+        </div>
+      )}
     </div>
   );
 };

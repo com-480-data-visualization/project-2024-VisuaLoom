@@ -364,12 +364,12 @@ const Page2: React.FC = () => {
           .attr("fill", function () {
             if (hoveredArtist === d.artist) {
               const color = d3.color(colorScale(d.artist));
-              return color ? color.darker(0.5).toString() : "white";
+              return color ? color.darker(1.5).toString() : "white";
             } else return colorScale(d.artist);
           })
           .on("mouseover", function (event) {
             const color = d3.color(colorScale(d.artist));
-            const darkerColor = color ? color.darker(0.5).toString() : "";
+            const darkerColor = color ? color.darker(1.5).toString() : "";
 
             d3.select(this)
               .transition()
@@ -378,7 +378,7 @@ const Page2: React.FC = () => {
             tooltip
               .style("opacity", 1)
               .html(
-                `<strong>${d.song}</strong><br/>Artist: ${d.artist}<br/>Year: ${d.year}<br/>Popularity: ${d.popularity}`
+                `  <strong>${d.song}</strong><br/>Artist: ${d.artist}<br/>Year: ${d.year}<br/>Popularity: ${d.popularity}  `
               )
               .style("left", `${event.pageX + 40}px`)
               .style("top", `${event.pageY + 40}px`)

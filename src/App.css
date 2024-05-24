@@ -1,5 +1,10 @@
+:root {
+  --main-bg-color: #eeecf9;  /* 白色背景 */
+  --main-text-color: #333333; /* 深色文本 */
+}
+
 body {
-    background-color: #C8BFE7; 
+    background-color: #eeecf9; 
     margin: 0;
     padding: 0;
   }

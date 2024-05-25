@@ -24,7 +24,7 @@ const Genres: React.FC = () => {
   const [data, setData] = useState<HierarchyDatum | null>(null);
 
   useEffect(() => {
-    fetch("/project-2024-VisuaLoom/data/songs_normalize_cleaned.json")
+    fetch("/project-2024-VisuaLoom/data/songs_normalize_cleaned2.json")
       .then((response) => response.json())
       .then((data: Song[]) => {
         const transformedData = transformData(data);
@@ -228,7 +228,7 @@ const Genres: React.FC = () => {
           genreMap,
           ([genre, genreSongs]) => {
             const songChildren: HierarchyDatum[] = genreSongs.map((song) => ({
-              name: song.song,
+              name: song.name,
               value: song.popularity,
               artist: song.artist,
               year: song.year,

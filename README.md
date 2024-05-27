@@ -1,6 +1,7 @@
 # 🎵**Hits Songs Through Time**🎵
 
 Project for COM-480 Data Visualization Course at EPFL
+🚩Our final website link: [https://com-480-data-visualization.github.io/project-2024-VisuaLoom/](https://com-480-data-visualization.github.io/project-2024-VisuaLoom/)
 
 | Student's name | SCIPER |
 | -------------- | ------ |
@@ -65,6 +66,6 @@ _(max. 2000 characters per section)_
 
 ## Milestone 3 (31st May, 5pm)
 
-🚩 Process Book
+🚩  [Process Book](Process_Book.pdf)
 
 🚩Our final website link: [https://com-480-data-visualization.github.io/project-2024-VisuaLoom/](https://com-480-data-visualization.github.io/project-2024-VisuaLoom/)

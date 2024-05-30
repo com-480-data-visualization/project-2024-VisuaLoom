@@ -4,7 +4,7 @@ Project for COM-480 Data Visualization Course at EPFL
 
 🚩Our final website link: [https://com-480-data-visualization.github.io/project-2024-VisuaLoom/](https://com-480-data-visualization.github.io/project-2024-VisuaLoom/)
 
-🚩Our screen cast link:[https://www.youtube.com/watch?v=55HVT1g9m8Q](https://www.youtube.com/watch?v=55HVT1g9m8Q)
+🚩Our screen cast link: [https://www.youtube.com/watch?v=55HVT1g9m8Q](https://www.youtube.com/watch?v=55HVT1g9m8Q)
 
 | Student's name | SCIPER |
 | -------------- | ------ |

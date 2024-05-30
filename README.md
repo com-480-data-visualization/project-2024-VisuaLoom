@@ -69,6 +69,6 @@ _(max. 2000 characters per section)_
 
 ## Milestone 3 (31st May, 5pm)
 
-🚩  [Process Book](Process_Book.pdf)
+🚩  [Process Book](DV_Process_Book.pdf)
 
 🚩Our final website link: [https://com-480-data-visualization.github.io/project-2024-VisuaLoom/](https://com-480-data-visualization.github.io/project-2024-VisuaLoom/)

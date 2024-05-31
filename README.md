@@ -49,6 +49,7 @@ This dataset, popular on Kaggle, contains no NaN values, minimizing the need for
   - **picture/** : Contains image resources.
 
 ## 📽 Screen cast
+[https://www.youtube.com/watch?v=55HVT1g9m8Q](https://www.youtube.com/watch?v=55HVT1g9m8Q)
 
 ## Milestone 1 (29th March, 5pm)
 

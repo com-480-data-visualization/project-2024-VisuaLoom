@@ -48,8 +48,7 @@ This dataset, popular on Kaggle, contains no NaN values, minimizing the need for
   - **components/** : Contains functional component files and their styles, such as **RadarChart.tsx** , **Features.tsx** , **Navbar.tsx** , etc.
   - **picture/** : Contains image resources.
 
--**set up**
-
+- **set up**
   - Clone the repo: `git clone https://github.com/com-480-data-visualization/project-2024-VisuaLoom.git`
   - Run the following command to install the dependencies `npm install`
   - Running the project `npm run dev`

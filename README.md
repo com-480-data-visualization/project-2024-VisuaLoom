@@ -39,7 +39,7 @@ The dataset "Top Hits Spotify from 2000-2019" provides comprehensive information
 
 This dataset, popular on Kaggle, contains no NaN values, minimizing the need for extensive cleaning.
 
-## 🚀Architecture
+## 🚀Architecture & Set up
 
 - **src/**
   - **App.css** , **App.tsx** : Main styles and main component files, defining the overall structure and style of the application.
@@ -48,7 +48,13 @@ This dataset, popular on Kaggle, contains no NaN values, minimizing the need for
   - **components/** : Contains functional component files and their styles, such as **RadarChart.tsx** , **Features.tsx** , **Navbar.tsx** , etc.
   - **picture/** : Contains image resources.
 
-## 📽 Screen cast
+-**set up**
+
+  - Clone the repo: `git clone https://github.com/com-480-data-visualization/project-2024-VisuaLoom.git`
+  - Run the following command to install the dependencies `npm install`
+  - Running the project `npm run dev`
+    
+## 📽 Screen cast 
 [https://www.youtube.com/watch?v=55HVT1g9m8Q](https://www.youtube.com/watch?v=55HVT1g9m8Q)
 
 ## Milestone 1 (29th March, 5pm)
